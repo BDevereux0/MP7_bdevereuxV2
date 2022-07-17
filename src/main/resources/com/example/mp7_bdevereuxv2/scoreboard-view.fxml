@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mp7_bdevereuxv2.ScoreboardController">
+   <center>
+      <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="nameTV" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="dateTV" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="scoreTV" prefWidth="75.0" text="Score" />
+            <TableColumn fx:id="resultTV" prefWidth="123.99993896484375" text="Result" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <TextArea fx:id="streamTA" prefHeight="38.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>
