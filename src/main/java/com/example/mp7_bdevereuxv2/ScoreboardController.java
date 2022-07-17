@@ -33,7 +33,7 @@ public class ScoreboardController {
    @FXML
    TextArea streamTA;
 
-    /*public void initialize() throws IOException {
+    public void initialize() throws IOException {
         try{
             boolean end = false;
             while (!end) {
@@ -51,5 +51,5 @@ public class ScoreboardController {
         }catch (ClassNotFoundException e){
             e.printStackTrace();
         }
-    }*/
+    }
 }
