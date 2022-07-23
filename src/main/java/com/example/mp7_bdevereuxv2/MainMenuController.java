@@ -13,8 +13,6 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class MainMenuController {
-
-
     @FXML
     private Button newGameBtn;
 
@@ -56,7 +54,7 @@ public class MainMenuController {
             Stage stage2 = (Stage) scoreboardBtn.getScene().getWindow();
             stage2.close();
 
-            //load playerName stage
+            //load scoreBoard stage
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("scoreboard-view.fxml"));
             scene = new Scene(fxmlLoader.load(), 400, 400);
             stage.setTitle("Scoreboard");
