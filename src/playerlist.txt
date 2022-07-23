@@ -1,0 +1,10 @@
+Brandon,Sat Jul 23 16:11:01 EDT 2022,11,true
+Quentin,Sat Jul 23 16:11:01 EDT 2022,0,false
+Katie,Sat Jul 23 16:11:34 EDT 2022,12,true
+Quentin,Sat Jul 23 16:11:34 EDT 2022,0,false
+Brandon,Sat Jul 23 16:12:05 EDT 2022,9,false
+Quentin,Sat Jul 23 16:12:05 EDT 2022,12,true
+Brandon,Sat Jul 23 16:27:29 EDT 2022,0,false
+Quentin,Sat Jul 23 16:27:29 EDT 2022,12,true
+Brandon,Sat Jul 23 17:26:57 EDT 2022,16,true
+Quentin,Sat Jul 23 17:26:57 EDT 2022,0,false
