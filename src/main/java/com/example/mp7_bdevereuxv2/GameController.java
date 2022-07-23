@@ -38,7 +38,7 @@ public class GameController extends PlayerNameController {
 
     ObjectOutputStream oos;
 
-    File file;
+    PrintWriter pw;
 
     AppendingObjectFileOutput append;
 
@@ -91,7 +91,7 @@ public class GameController extends PlayerNameController {
 
     public void checkWin() throws IOException {
 
-        if (player1.getPoints() >= 10 || player2.getPoints() >= 10) {
+        /*if (player1.getPoints() >= 10 || player2.getPoints() >= 10) {
             if (player1.getPoints() >= 10) {
                 player1.setWin(true);
             } else {
@@ -108,10 +108,32 @@ public class GameController extends PlayerNameController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {
-                oos.flush();
+
             }
             launchWinnerWindow();
-        }
+    }*/
+        if (player1.getPoints() >= 10 || player2.getPoints() >= 10) {
+            if (player1.getPoints() >= 10) {
+                player1.setWin(true);
+            } else {
+                player2.setWin(true);
+            }
+            try {
+                pw = new PrintWriter(new FileWriter("src/playerlist.txt", true));
+                pw.println(player1.getName() + "," + player1.getDate() + "," + player1.getPoints()
+                        + "," + player1.isWin());
+                pw.println(player2.getName() + "," + player2.getDate() + "," + player2.getPoints()
+                        + "," + player2.isWin());
+            }catch (IOException e){
+                e.printStackTrace();
+            }finally {
+                if (pw != null){
+                    pw.close();
+                }
+            }
+            launchWinnerWindow();
+            }
+
     }
 
     public void launchWinnerWindow() {

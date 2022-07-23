@@ -17,19 +17,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ScoreboardController {
+public class ScoreboardController  {
 
     ObjectInputStream ois;
 
-   ObservableList<Player> list = FXCollections.observableArrayList();
+    Scanner scanner;
+
+    ObservableList<ScoreboardData> list = FXCollections.observableArrayList();
 
     @FXML
     Button newGameBtn;
@@ -38,49 +38,49 @@ public class ScoreboardController {
     Button exitBtn;
 
     @FXML
-   TableView<Player> tableView;
-
-   @FXML
-   TableColumn <Player, String>nameTV;
-
-   @FXML
-   TableColumn <Player, Date>dateTV;
-
-   @FXML
-   TableColumn<Player, Integer> scoreTV;
-
-   @FXML
-   TableColumn<Player, Boolean> resultTV;
-
-   @FXML
-   TextArea streamTA;
+    TableView<ScoreboardData> tableView;
 
     @FXML
-   public void newGameOnAction(){
-       Stage stage = new Stage();
-       Scene scene;
+    TableColumn<ScoreboardData, String> nameTV;
 
-       try {
-           //close window
-           Stage stage1 = (Stage) newGameBtn.getScene().getWindow();
-           stage1.close();
+    @FXML
+    TableColumn<ScoreboardData, Date> dateTV;
 
-           //load playerName stage
-           FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("playerName-view.fxml"));
-           scene = new Scene(fxmlLoader.load(), 400, 400);
-           stage.setTitle("Name Screen");
-           stage.setScene(scene);
-           stage.show();
+    @FXML
+    TableColumn<ScoreboardData, Integer> scoreTV;
 
-       }catch (IOException e){
-           e.printStackTrace();
-       }
-   }
+    @FXML
+    TableColumn<ScoreboardData, Boolean> resultTV;
 
-   @FXML
-   public void exitOnAction(){
-       Platform.exit();
-   }
+    @FXML
+    TextArea streamTA;
+
+    @FXML
+    public void newGameOnAction() {
+        Stage stage = new Stage();
+        Scene scene;
+
+        try {
+            //close window
+            Stage stage1 = (Stage) newGameBtn.getScene().getWindow();
+            stage1.close();
+
+            //load playerName stage
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("playerName-view.fxml"));
+            scene = new Scene(fxmlLoader.load(), 400, 400);
+            stage.setTitle("Name Screen");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void exitOnAction() {
+        Platform.exit();
+    }
 
     public void initialize() throws IOException {
         initColumns();
@@ -88,27 +88,30 @@ public class ScoreboardController {
 
     }
 
-    private void initColumns(){
+    private void initColumns() {
         nameTV.setCellValueFactory(new PropertyValueFactory<>("Name"));
         dateTV.setCellValueFactory(new PropertyValueFactory<>("Date"));
         scoreTV.setCellValueFactory(new PropertyValueFactory<>("Points"));
         resultTV.setCellValueFactory(new PropertyValueFactory<>("Win"));
     }
 
-    private void streamView(ObservableList<Player> list){
-        list.stream().filter(e->e.isWin())
-                .collect(Collectors.groupingBy(e->e, Collectors.counting()))
-               .forEach((k,v)-> streamTA.setText(k.getName() + " has " +v + " wins\n"));
+    private void streamView(List<ScoreboardData> list){
+      list.stream()
+                .filter(e-> Boolean.parseBoolean(e.getWin()))
+                .collect(Collectors.groupingBy(e->e.getName(), Collectors.counting()))
+                .forEach((k,v)-> streamTA.appendText(k + " has " + v + " wins\n"));
+
+
     }
 
-    public void accessList(ObservableList<Player> list){
+    public void accessList(ObservableList<ScoreboardData> list) {
         tableView.getItems().addAll(list);
         streamView(list);
     }
 
     public void readFile() throws IOException {
         ExecutorService service = null;
-        try {
+        /*try {
             Thread.sleep(500);
             service = Executors.newSingleThreadExecutor();
             ois = new ObjectInputStream(new FileInputStream("src/playerlist.txt"));
@@ -126,11 +129,32 @@ public class ScoreboardController {
                     }
                 }
                 accessList(list);
-           });
+           });*/
+
+        try {
+
+            Thread.sleep(500);
+            service = Executors.newSingleThreadExecutor();
+            scanner = new Scanner(new FileReader("src/playerlist.txt"));
+
+            service.execute(() -> {
+                String input;
+
+                while (scanner.hasNextLine()) {
+                    input = scanner.nextLine();
+                    String[] scoreboardDataFeed = input.split(",");
+                    ScoreboardData sbd = new ScoreboardData(scoreboardDataFeed[0], scoreboardDataFeed[1],
+                            scoreboardDataFeed[2], scoreboardDataFeed[3]);
+                    list.add(sbd);
+                }
+
+                accessList(list);
+
+            });
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
-            if (service != null){
+            if (service != null) {
                 service.shutdown();
             }
 
