@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
@@ -33,17 +34,23 @@ public class GameController extends PlayerNameController {
     @FXML
     TextArea playerTurnTA;
 
+    @FXML
+    Label p1ScoreLabel;
+
+    @FXML
+    Label p2ScoreLabel;
+
     int total = 0;
-
-
-    ObjectOutputStream oos;
 
     PrintWriter pw;
 
-    AppendingObjectFileOutput append;
+
 
     public void initialize() {
         playerTurnTA.setText(checkPlayerTurn());
+        p1ScoreLabel.setText(player1.getName()+"'s Current Score");
+        p2ScoreLabel.setText(player2.getName()+"'s Current Score");
+
     }
 
     private int rollValue() {
@@ -91,27 +98,6 @@ public class GameController extends PlayerNameController {
 
     public void checkWin() throws IOException {
 
-        /*if (player1.getPoints() >= 10 || player2.getPoints() >= 10) {
-            if (player1.getPoints() >= 10) {
-                player1.setWin(true);
-            } else {
-                player2.setWin(true);
-            }
-            try {
-                oos = new ObjectOutputStream(new FileOutputStream("src/playerlist.txt"));
-                oos.writeObject(player1);
-                oos.writeObject(player2);
-
-                System.out.println("Writing to file..");
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } finally {
-
-            }
-            launchWinnerWindow();
-    }*/
         if (player1.getPoints() >= 10 || player2.getPoints() >= 10) {
             if (player1.getPoints() >= 10) {
                 player1.setWin(true);
