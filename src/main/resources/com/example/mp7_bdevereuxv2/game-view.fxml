@@ -45,8 +45,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Player 1 Score" />
-            <Label text="Player 2 Score" GridPane.columnIndex="1" />
+            <Label fx:id="p1ScoreLabel" text="Player 1 Score" />
+            <Label fx:id="p2ScoreLabel" text="Player 2 Score" GridPane.columnIndex="1" />
             <TextArea fx:id="player1ScoreTA" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
             <TextArea fx:id="player2ScoreTA" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
