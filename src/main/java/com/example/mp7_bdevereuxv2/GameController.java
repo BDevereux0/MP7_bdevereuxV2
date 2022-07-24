@@ -161,11 +161,11 @@ public class GameController extends PlayerNameController {
         currentRollAmountTA.setText(String.valueOf(rollValue()));
         playerTurnTA.setText(checkPlayerTurn());
 
-        if (Integer.valueOf(currentRollAmountTA.getText()) == 1) {
+        if (Integer.parseInt(currentRollAmountTA.getText()) == 1) {
             total = 0;
             swapTurns();
         } else
-            total = Integer.valueOf(currentRollAmountTA.getText()) + total;
+            total = Integer.parseInt(currentRollAmountTA.getText()) + total;
     }
 
     @FXML
